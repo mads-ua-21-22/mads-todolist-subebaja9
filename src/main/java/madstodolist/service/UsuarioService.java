@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -59,5 +61,16 @@ public class UsuarioService {
     @Transactional(readOnly = true)
     public Usuario findById(Long usuarioId) {
         return usuarioRepository.findById(usuarioId).orElse(null);
+    }
+
+    public List<Usuario> allUsuarios() {
+        List<Usuario> usuarios = new ArrayList<>();
+
+        //usuarioRepository.findAll().forEach(usuarios::add);
+
+        for(Usuario usuario : usuarioRepository.findAll()){
+            usuarios.add(usuario);
+        }
+        return usuarios;
     }
 }
