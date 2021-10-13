@@ -1,6 +1,5 @@
 package madstodolist.service;
 
-import madstodolist.model.Tarea;
 import madstodolist.model.Usuario;
 import madstodolist.model.UsuarioRepository;
 import org.slf4j.Logger;
@@ -9,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -63,8 +63,14 @@ public class UsuarioService {
         return usuarioRepository.findById(usuarioId).orElse(null);
     }
 
-    @Transactional(readOnly = true)
-    public List<Usuario> getAll(){
-        return usuarioRepository.findAll();
+    public List<Usuario> allUsuarios() {
+        List<Usuario> usuarios = new ArrayList<>();
+
+        //usuarioRepository.findAll().forEach(usuarios::add);
+
+        for(Usuario usuario : usuarioRepository.findAll()){
+            usuarios.add(usuario);
+        }
+        return usuarios;
     }
 }
