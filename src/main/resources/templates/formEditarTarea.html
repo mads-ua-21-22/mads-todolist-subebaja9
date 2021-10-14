@@ -27,7 +27,7 @@
                     <p th:text="${tarea.usuario.nombre}"></p>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="#">Cuenta</a>
+                    <a class="dropdown-item" href="@{/usuarios/{id}(id=$(usuario.id)}">Cuenta</a>
                     <a class="dropdown-item" href="/logout">
                         <p th:text="'Cerrar sesión '+${tarea.usuario.nombre}"></p>
                     </a>
