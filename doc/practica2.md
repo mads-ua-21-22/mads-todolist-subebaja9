@@ -10,3 +10,7 @@ Un pequeño listado de plantillas thymeleaf es el siguiente:
 * Tablas
 * Botones
 * Formulario
+##Enlace trello
+https://trello.com/invite/b/9MYFfZAc/1a8a5323d3e2b41df47641e5a13ad9fe/todolist-mads
+##Enlace repositorio
+https://github.com/mads-ua-21-22/mads-todolist-subebaja9
