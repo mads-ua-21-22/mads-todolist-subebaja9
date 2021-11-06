@@ -11,11 +11,11 @@ import org.springframework.transaction.annotation.Transactional;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-public class EquiposTest {
-    @Autowired
+public class EquipoTest {
+    /*@Autowired
     private EquipoRepository equiposRepository;
     Usuario usuario1 = new Usuario("juan.gutierrez@gmail.com");
-    Usuario usuario2 = new Usuario("fran.gutierrez@gmail.com");
+    Usuario usuario2 = new Usuario("fran.gutierrez@gmail.com");*/
 
     @Test
     public void crearEquipo() throws Exception{
@@ -24,7 +24,7 @@ public class EquiposTest {
         //THEN
         assertThat(equipo.getNombre()).isEqualTo("Equipo1");
     }
-
+/*
     @Test
     @Transactional
     public void creaEquipoBaseDatos() throws Exception{
@@ -97,5 +97,5 @@ public class EquiposTest {
         //THEN
         assertThat(equipo1).isEqualTo(equipo2);
         assertThat(equipo1).isNotEqualTo(equipo3);
-    }
+    }*/
 }
