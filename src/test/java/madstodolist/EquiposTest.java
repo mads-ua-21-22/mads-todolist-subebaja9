@@ -1,15 +1,19 @@
 package madstodolist;
 
+import madstodolist.model.Equipo;
+import madstodolist.model.EquipoRepository;
 import madstodolist.model.Usuario;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 @SpringBootTest
 public class EquiposTest {
     @Autowired
-    private EquiposRepository equiposRepository;
+    private EquipoRepository equiposRepository;
     Usuario usuario1 = new Usuario("juan.gutierrez@gmail.com");
     Usuario usuario2 = new Usuario("fran.gutierrez@gmail.com");
 
@@ -18,7 +22,7 @@ public class EquiposTest {
         //GIVEN
         Equipo equipo = new Equipo("Equipo1");
         //THEN
-        assertThat(equipo.getNombre().isEqualTo("Equipo1"));
+        assertThat(equipo.getNombre()).isEqualTo("Equipo1");
     }
 
     @Test
@@ -31,8 +35,8 @@ public class EquiposTest {
         equiposRepository.save(equipo);
 
         //THEN
-        assertThat(equipo.getId().isNotNull());
-        assertThat(equipo.getNombre().isEqualTo("Equipo1"));
+        assertThat(equipo.getId()).isNotNull();
+        assertThat(equipo.getNombre()).isEqualTo("Equipo1");
     }
 
     @Test
@@ -46,8 +50,8 @@ public class EquiposTest {
 
         //THEN
         assertThat(equipo).isNotNull();
-        assertThat(equipo.getId().isEqualTo(1L));
-        assertThat(equipo.getNombre().isEqualTo("EquipoDataBase"));
+        assertThat(equipo.getId()).isEqualTo(1L);
+        assertThat(equipo.getNombre()).isEqualTo("EquipoDataBase");
     }
 
     @Test
@@ -60,7 +64,7 @@ public class EquiposTest {
         Equipo equipo = equiposRepository.findByNombre("EquipoDataBase").orElse(null);
 
         //THEN
-        assertThat(equipo).isNotNull;
+        assertThat(equipo).isNotNull();
     }
 
     @Test
@@ -91,7 +95,7 @@ public class EquiposTest {
         //WHEN
 
         //THEN
-        assertThat(usuario1).isEqualTo(usuario2);
-        assertThat(usuario1).isNotEqualTo(usuario3);
+        assertThat(equipo1).isEqualTo(equipo2);
+        assertThat(equipo1).isNotEqualTo(equipo3);
     }
 }
