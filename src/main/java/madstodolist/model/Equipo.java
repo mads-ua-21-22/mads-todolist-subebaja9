@@ -8,6 +8,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "equipos")
 public class Equipo implements Serializable {
+
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -15,6 +16,8 @@ public class Equipo implements Serializable {
     private Long id;
     @NotNull
     private String nombre;
+
+    private Equipo() {}
 
     public Equipo(String nombre) {this.nombre=nombre;}
 
