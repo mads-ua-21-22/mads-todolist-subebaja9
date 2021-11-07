@@ -39,6 +39,9 @@ public class Usuario implements Serializable {
     // de ser privado.
     private Usuario() {}
 
+    @ManyToMany(mappedBy = "usuarios",fetch = FetchType.EAGER)
+    Set<Equipo> equipos = new HashSet<>();
+
     // Constructor público con los atributos obligatorios. En este caso el correo electrónico.
     public Usuario(String email) {
         this.email = email;
@@ -91,6 +94,12 @@ public class Usuario implements Serializable {
     public void setTareas(Set<Tarea> tareas) {
         this.tareas = tareas;
     }
+
+    public Set<Equipo> getEquipos() {
+        return equipos;
+    }
+
+    public void setEquipos(Set<Equipo> equipos) {this.equipos = equipos;}
 
     @Override
     public boolean equals(Object o) {
