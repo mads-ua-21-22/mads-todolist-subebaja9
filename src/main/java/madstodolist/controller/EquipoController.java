@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.servlet.http.HttpSession;
@@ -31,5 +32,18 @@ public class EquipoController {
         model.addAttribute("usuario",usuario);
         model.addAttribute("equipos",equipos);
         return "listaEquipos";
+    }
+
+    @GetMapping("/usuarios/{id}/equipos/nuevo")
+    public String formNuevoEquipo(@PathVariable(value = "id") Long idUsuario,
+                                  @ModelAttribute EquipoData equipoData, Model model,
+                                  HttpSession session){
+        managerUserSession.comprobarUsuarioLogeado(session,idUsuario);
+
+        Usuario usuario = usuarioService.findById(idUsuario);
+        if (usuario == null)
+            throw new UsuarioNotFoundException();
+        model.addAttribute("usuario",usuario);
+        return "formNuevoEquipo";
     }
 }
