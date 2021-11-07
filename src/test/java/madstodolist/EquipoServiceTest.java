@@ -3,12 +3,18 @@ package madstodolist;
 // imports
 
 import madstodolist.model.Equipo;
+import madstodolist.model.Usuario;
 import madstodolist.service.EquipoService;
+import madstodolist.service.UsuarioService;
+import org.assertj.core.api.Assert;
+import org.hibernate.LazyInitializationException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
+
 import java.util.List;
 
 @SpringBootTest
@@ -16,6 +22,8 @@ public class EquipoServiceTest {
 
     @Autowired
     EquipoService equipoService;
+    @Autowired
+    UsuarioService usuarioService;
 
     @Test
     public void obtenerListadoEquipos() {
@@ -29,5 +37,36 @@ public class EquipoServiceTest {
         assertThat(equipos).hasSize(2);
         assertThat(equipos.get(0).getNombre()).isEqualTo("Proyecto A1");
         assertThat(equipos.get(1).getNombre()).isEqualTo("Proyecto P1");
+    }
+
+    @Test
+    public void obtenerEquipo() {
+        // GIVEN
+        // En el application.properties se cargan los datos de prueba del fichero datos-test.sql
+
+        // WHEN
+        Equipo equipo = equipoService.findById(1L);
+
+        // THEN
+        assertThat(equipo.getNombre()).isEqualTo("Proyecto P1");
+        // Comprobamos que la relación con Usuarios es lazy: al
+        // intentar acceder a la colección de usuarios se debe lanzar una
+        // excepción de tipo LazyInitializationException.
+        assertThatThrownBy(() -> {
+            equipo.getUsuarios().size();
+        }).isInstanceOf(LazyInitializationException.class);
+    }
+
+    @Test
+    public void comprobarRelacionUsuarioEquipos() {
+        // GIVEN
+        // En el application.properties se cargan los datos de prueba del fichero datos-test.sql
+
+        // WHEN
+        Usuario usuario = usuarioService.findById(1L);
+
+        // THEN
+
+        assertThat(usuario.getEquipos()).hasSize(1);
     }
 }

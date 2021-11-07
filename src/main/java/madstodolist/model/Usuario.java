@@ -39,7 +39,7 @@ public class Usuario implements Serializable {
     // de ser privado.
     private Usuario() {}
 
-    @ManyToMany(mappedBy = "usuarios")
+    @ManyToMany(mappedBy = "usuarios",fetch = FetchType.EAGER)
     Set<Equipo> equipos = new HashSet<>();
 
     // Constructor público con los atributos obligatorios. En este caso el correo electrónico.
