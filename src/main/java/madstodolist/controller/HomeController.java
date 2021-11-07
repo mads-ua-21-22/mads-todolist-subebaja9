@@ -3,6 +3,9 @@ package madstodolist.controller;
 import madstodolist.authentication.ManagerUserSession;
 import madstodolist.controller.exception.UsuarioNotFoundException;
 import madstodolist.model.Usuario;
+import madstodolist.model.Equipo;
+import madstodolist.service.EquipoService;
+import madstodolist.service.EquipoServiceException;
 import madstodolist.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +21,9 @@ public class HomeController {
 
     @Autowired
     UsuarioService usuarioService;
+
+    @Autowired
+    EquipoService equipoService;
 
     @Autowired
     ManagerUserSession managerUserSession;
@@ -42,5 +48,21 @@ public class HomeController {
 
         model.addAttribute("usuario",usuario);
         return "descripcionUsuario";
+    }
+
+    @GetMapping("/equipos")
+    public String equipos(Model model){
+        List<Equipo> todosequipos = equipoService.findAllOrderedByName();
+        model.addAttribute("equipos",todosequipos);
+        return "equipos";
+    }
+
+    @GetMapping("/equipos/{id}")
+    public String miembrosEquipo(@PathVariable(value = "id") Long idEquipo,Model model, HttpSession session){
+        Equipo equipo = equipoService.findById(idEquipo);
+        if(equipo == null)
+            throw new EquipoServiceException("No encotrado");
+        model.addAttribute("equipo",equipo);
+        return "miembrosEquipo";
     }
 }
