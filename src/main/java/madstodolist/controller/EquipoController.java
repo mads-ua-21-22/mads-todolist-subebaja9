@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.servlet.http.HttpSession;
-import java.util.List;
+import java.util.Set;
 
 @Controller
 public class EquipoController {
@@ -27,7 +27,7 @@ public class EquipoController {
         Usuario usuario = usuarioService.findById(idUsuario);
         if(usuario == null)
             throw new UsuarioNotFoundException();
-        List<Equipo> equipos = (List<Equipo>) usuario.getEquipos();
+        Set<Equipo> equipos = usuario.getEquipos();
         model.addAttribute("usuario",usuario);
         model.addAttribute("equipos",equipos);
         return "listaEquipos";

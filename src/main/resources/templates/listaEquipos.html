@@ -49,8 +49,19 @@
                     <th>Acción</th>
                 </tr>
                 </thead>
-                <tr th:each="equipo: ${usuario.}"
+                <tbody>
+                <tr th:each="equipo: ${equipos}">
+                    <td th:text="${equipo.id}"></td>
+                    <td th:text="${equipo.nombre}"></td>
+                    <td>
+                        <button class="btn btn-danger btn-xs" onmouseover="" style="cursor: pointer;"
+                        th:onclick="'del(\'/equipos/'+${equipo.id}+'\')'">borrar</button>
+                    </td>
+                </tr>
+                </tbody>
             </table>
+            <p><a class="btn btn-primary" th:ref="@{/usuarios/{id}/equipos/nuevo(id=${usuario.id})}">Nuevo Equipo</a>
+            <a class="btn btn-primary" th:href="@{/usuarios/{id}/equipos/existente(id=${usuario.id})}">Añadir a equipo Existente</a> </p>
         </div>
     </div>
 </div>
