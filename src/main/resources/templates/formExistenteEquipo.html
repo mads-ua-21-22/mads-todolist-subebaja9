@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments :: head (titulo='Login')"></head>
+
+<body>
+<div class="container-fluid">
+    <h2 th:text="'Añadir equipo existene el usuario ' + ${usuario.id}"></h2>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand">Menú</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/about">ToDoList<span class="sr-only"></span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/usuarios/{id}/tareas(id=${usuario.id})}">Tareas<span class="sr-only"></span> </a>
+                </li>
+            </ul>
+            <span class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <p th:text="${usuario.nombre}"></p>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="@{/usuarios/{id}(id=$(usuario.id)}">Cuenta</a>
+                    <a class="dropdown-item" href="/logout">
+                        <p th:text="'Cerrar sesión '+${usuario.nombre}"></p>
+                    </a>
+                </div>
+            </span>
+        </div>
+    </nav>
+
+    <form method="post" th:action="@{/usuarios/{id}/equipos/existentes(id=${usuario.id})}" th:object="${equipoData}">
+        <div class="col-6">
+            <div class="form-group">
+                <label>Equipos Existentes:</label>
+                <select class="custom-select">
+                    <option th:each="equipo:${equipos}" th:value="${equipo.id}" th:text="${equipo.nombre}"></option>
+                </select>
+            </div>
+            <button class="btn btn-primary" type="submit">Añadir a grupo</button>
+            <a class="btn btn-link" th:href="@{/usuarios/{id}/equipos(id=${usuario.id})}">Cancelar</a>
+        </div>
+    </form>
+</div>
+
+<div th:replace="fragments::javascript"/>
+
+</body>
+</html>
