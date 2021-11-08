@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 import java.util.Set;
 
 @Controller
@@ -64,5 +65,19 @@ public class EquipoController {
         equipoService.nuevoEquipoUsuario(idUsuario,equipoData.getTitulo());
         flash.addFlashAttribute("mensaje","Equipo creado correctamente");
         return "redirect:/usuarios/"+idUsuario+"/equipos";
+    }
+
+    @GetMapping("/usuarios/{id}/equipos/existente")
+    public String formExistenteEquipo(@PathVariable(value = "id") Long idUsuario,
+                                      @ModelAttribute EquipoData equipoData, Model model,
+                                      HttpSession session){
+        managerUserSession.comprobarUsuarioLogeado(session,idUsuario);
+        Usuario usuario = usuarioService.findById(idUsuario);
+        if(usuario==null)
+            throw new UsuarioNotFoundException();
+        List<Equipo> equipos = equipoService.findAllOrderedByName();
+        model.addAttribute("usuario",usuario);
+        model.addAttribute("equipos",equipos);
+        return "formExistenteEquipo";
     }
 }
