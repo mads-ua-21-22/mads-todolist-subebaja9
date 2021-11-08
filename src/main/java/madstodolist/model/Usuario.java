@@ -120,4 +120,6 @@ public class Usuario implements Serializable {
         // Generamos un hash basado en los campos obligatorios
         return Objects.hash(email);
     }
+
+    public void deleteEquipo(Equipo equipo) { equipos.remove(equipo);}
 }

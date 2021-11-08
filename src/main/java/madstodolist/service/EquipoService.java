@@ -1,5 +1,6 @@
 package madstodolist.service;
 
+import madstodolist.controller.exception.UsuarioNotFoundException;
 import madstodolist.model.Equipo;
 import madstodolist.model.EquipoRepository;
 import madstodolist.model.Usuario;
@@ -78,5 +79,19 @@ public class EquipoService {
         usuario.addEquipo(equipo);
         equipoRepository.save(equipo);
         return equipo;
+    }
+
+    @Transactional
+    public void borrarUsuarioEquipo(Long idUsuario, Long idEquipo) {
+        logger.debug("Borrando relacion entre usuario " +idUsuario+" y equipo "+idEquipo);
+        Usuario usuario = usuarioRepository.findById(idUsuario).orElse(null);
+        if(usuario == null)
+            throw new UsuarioNotFoundException();
+        Equipo equipo = equipoRepository.findById(idEquipo).orElse(null);
+        if(equipo == null)
+            throw new EquipoServiceException("Equipo no encontrado");
+        equipo.deleteUsuario(usuario);
+        usuario.deleteEquipo(equipo);
+        equipoRepository.save(equipo);
     }
 }
