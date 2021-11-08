@@ -101,6 +101,8 @@ public class Usuario implements Serializable {
 
     public void setEquipos(Set<Equipo> equipos) {this.equipos = equipos;}
 
+    public void addEquipo(Equipo equipo) {equipos.add(equipo);}
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
