@@ -80,4 +80,18 @@ public class EquipoController {
         model.addAttribute("equipos",equipos);
         return "formExistenteEquipo";
     }
+
+    @PostMapping("/usuarios/{id}/equipos/existentes")
+    public String existenteEquipo(@PathVariable(value="id") Long idUsuario, @ModelAttribute EquipoData equipoData,
+                                  Model model, RedirectAttributes flash,
+                                  HttpSession session){
+        managerUserSession.comprobarUsuarioLogeado(session,idUsuario);
+
+        Usuario usuario = usuarioService.findById(idUsuario);
+        if(usuario == null)
+            throw new UsuarioNotFoundException();
+        equipoService.existenteEquipoUsuario(idUsuario,equipoData.getTitulo());
+        flash.addFlashAttribute("mensaje","Equipo creado correctamente");
+        return "redirect:/usuarios/"+idUsuario+"/equipos";
+    }
 }

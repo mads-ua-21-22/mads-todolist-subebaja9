@@ -62,4 +62,21 @@ public class EquipoService {
         equipoRepository.save(equipo);
         return equipo;
     }
+
+    @Transactional
+    public Equipo existenteEquipoUsuario(Long idUsuario,String tituloEquipo){
+        logger.debug("Añadiendo equipo " + tituloEquipo + " al usuario " + idUsuario);
+        Usuario usuario = usuarioRepository.findById(idUsuario).orElse(null);
+        if(usuario==null)
+            throw new EquipoServiceException("El usuario no se puede añadir");
+        Equipo equipo = equipoRepository.findByNombre(tituloEquipo).orElse(null);
+        if(equipo == null)
+            throw new EquipoServiceException("El equipo no existe");
+        if(equipo.getUsuarios().contains(usuario))
+            throw new EquipoServiceException("El usuario ya existe en el equipo");
+        equipo.addUsuario(usuario);
+        usuario.addEquipo(equipo);
+        equipoRepository.save(equipo);
+        return equipo;
+    }
 }

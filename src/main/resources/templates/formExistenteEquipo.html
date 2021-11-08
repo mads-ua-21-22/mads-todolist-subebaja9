@@ -39,8 +39,8 @@
         <div class="col-6">
             <div class="form-group">
                 <label>Equipos Existentes:</label>
-                <select class="custom-select">
-                    <option th:each="equipo:${equipos}" th:value="${equipo.id}" th:text="${equipo.nombre}"></option>
+                <select name="titulo" id="titulo" class="custom-select"  th:field="*{titulo}">
+                    <option th:each="equipo:${equipos}" th:value="${equipo.nombre}" th:text="${equipo.nombre}"></option>
                 </select>
             </div>
             <button class="btn btn-primary" type="submit">Añadir a grupo</button>
