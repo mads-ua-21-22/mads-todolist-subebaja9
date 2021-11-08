@@ -55,7 +55,7 @@
                     <td th:text="${equipo.nombre}"></td>
                     <td>
                         <button class="btn btn-danger btn-xs" onmouseover="" style="cursor: pointer;"
-                        th:onclick="'del(\'/equipos/'+${equipo.id}+'\')'">borrar</button>
+                        th:onclick="'del(\'/usuarios/'+${usuario.id}+'/equipos/'+${equipo.id}+'\')'">borrar</button>
                     </td>
                 </tr>
                 </tbody>

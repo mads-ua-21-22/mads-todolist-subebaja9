@@ -90,8 +90,11 @@ public class EquipoService {
         Equipo equipo = equipoRepository.findById(idEquipo).orElse(null);
         if(equipo == null)
             throw new EquipoServiceException("Equipo no encontrado");
+        if(!equipo.getUsuarios().contains(usuario))
+            throw new EquipoServiceException("El usuario no esta en el equipo");
         equipo.deleteUsuario(usuario);
         usuario.deleteEquipo(equipo);
         equipoRepository.save(equipo);
+        usuarioRepository.save(usuario);
     }
 }
